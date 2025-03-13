@@ -1,5 +1,7 @@
 import ClearAll from "@/components/ClearAll";
+import InterestRate from "@/components/InterestRate";
 import MortgageAmount from "@/components/MortgageAmount";
+import MortgageTerm from "@/components/MortgageTerm";
 
 export default function CalculateForm() {
   return (
@@ -8,6 +10,8 @@ export default function CalculateForm() {
         <h1 className="font-bold text-2xl">Morgage Calculator</h1>
         <ClearAll />
         <MortgageAmount />
+        <MortgageTerm />
+        <InterestRate />
       </form>
     </div>
   );
