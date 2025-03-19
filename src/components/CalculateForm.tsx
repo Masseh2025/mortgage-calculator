@@ -43,6 +43,7 @@ export default function CalculateForm() {
             <div className="border-slate-500 p-2 bg-slate-100 border-1 border-r-0 rounded-l-sm w-8 flex justify-center group-focus-within:border-lime group-focus-within:bg-lime group-hover:border-lime group-hover:bg-lime font-medium">
               $
             </div>
+
             <input
               className="border-slate-500 p-2 border-1 border-l-0 rounded-r-sm text-slate-900 font-bold group-focus-within:border-lime group-hover:border-lime w-full"
               {...register("amount")}
@@ -51,6 +52,9 @@ export default function CalculateForm() {
               id="amount"
             />
           </div>
+          {errors.amount && (
+            <p className="text-red">{`${errors.amount.message}`}</p>
+          )}
         </div>
         <div className="flex flex-col mb-6">
           <label htmlFor="term" className="text-slate-700 font-medium mb-3">
@@ -68,6 +72,9 @@ export default function CalculateForm() {
               Years
             </div>
           </div>
+          {errors.term && (
+            <p className="text-red">{`${errors.term.message}`}</p>
+          )}
         </div>
         <div className="flex flex-col mb-6">
           <label htmlFor="rate" className="text-slate-700 font-medium mb-3">
@@ -100,6 +107,7 @@ export default function CalculateForm() {
               type="radio"
               value="repayment"
               id="repayment"
+              defaultChecked
             />
             Repayment
           </label>
