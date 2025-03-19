@@ -1,5 +1,4 @@
-import Calculate from "@/app/_cardLayout/CalculateForm";
-import CalculateResults from "./_cardLayout/CalculateResults";
+import Calculate from "@/components/CalculateForm";
 import "./globals.css";
 
 export default function Home() {
@@ -7,7 +6,6 @@ export default function Home() {
     <main className="h-screen bg-slate-100 flex justify-center">
       <div className="w-full">
         <Calculate />
-        <CalculateResults />
       </div>
     </main>
   );
