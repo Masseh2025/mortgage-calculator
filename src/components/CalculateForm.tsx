@@ -4,6 +4,9 @@ import { formSchema, FormSchema } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MouseEvent } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import Image from "next/image";
+import calculatorImage from "../../public/assets/images/icon-calculator.svg";
+import { cn } from "@/lib/cn";
 
 export default function CalculateForm() {
   const {
@@ -40,7 +43,12 @@ export default function CalculateForm() {
             Mortgage Amount
           </label>
           <div className="flex items-center group">
-            <div className="border-slate-500 p-2 bg-slate-100 border-1 border-r-0 rounded-l-sm w-8 flex justify-center group-focus-within:border-lime group-focus-within:bg-lime group-hover:border-lime group-hover:bg-lime font-medium">
+            <div
+              className={cn(
+                "border-slate-500 p-2 bg-slate-100 border-1 border-r-0 rounded-l-sm w-8 flex justify-center group-focus-within:border-lime group-focus-within:bg-lime group-hover:border-lime group-hover:bg-lime font-medium",
+                { "bg-red text-white": errors.amount }
+              )}
+            >
               $
             </div>
 
@@ -68,7 +76,12 @@ export default function CalculateForm() {
               name="term"
               id="term"
             />
-            <div className="border-slate-500 p-2 bg-slate-100 border-1 border-l-0 rounded-r-sm  flex justify-center group-focus-within:border-lime group-focus-within:bg-lime group-hover:border-lime group-hover:bg-lime transition-colors font-medium">
+            <div
+              className={cn(
+                "border-slate-500 p-2 bg-slate-100 border-1 border-l-0 rounded-r-sm  flex justify-center group-focus-within:border-lime group-focus-within:bg-lime group-hover:border-lime group-hover:bg-lime transition-colors font-medium",
+                { "bg-red tex-white": errors.term }
+              )}
+            >
               Years
             </div>
           </div>
@@ -88,10 +101,18 @@ export default function CalculateForm() {
               name="rate"
               id="rate"
             />
-            <div className="border-slate-500 p-2 bg-slate-100 border-1 border-l-0 rounded-r-sm w-8  flex justify-center group-focus-within:border-lime group-focus-within:bg-lime group-hover:border-lime group-hover:bg-lime transition-colors font-medium">
+            <div
+              className={cn(
+                "border-slate-500 p-2 bg-slate-100 border-1 border-l-0 rounded-r-sm w-8  flex justify-center group-focus-within:border-lime group-focus-within:bg-lime group-hover:border-lime group-hover:bg-lime transition-colors font-medium",
+                { "bg-red text-white": errors.rate }
+              )}
+            >
               %
             </div>
           </div>
+          {errors.rate && (
+            <p className="text-red">{`${errors.rate.message}`}</p>
+          )}
         </div>
         <div className="flex flex-col mb-6">
           <h2 className="text-slate-700 font-medium mb-3">Mortgage Type</h2>
@@ -126,7 +147,13 @@ export default function CalculateForm() {
             Interest only
           </label>
         </div>
-        <button type="submit">Submit</button>
+        <button
+          type="submit"
+          className="flex bg-lime text-slate-900 py-2 px-4 hover:bg-lime/60 cursor-pointer font-bold rounded-full justify-center w-full"
+        >
+          <Image src={calculatorImage} width={24} height={24} alt="Calcultor" />
+          Submit
+        </button>
       </form>
       <div className="bg-slate-900 p-4">
         <h2 className="font-semibold">Results</h2>
