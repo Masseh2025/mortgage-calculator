@@ -22,7 +22,8 @@ export default function CalculateForm() {
   const onSubmit = async (data: FieldValues) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log(data);
-    setData(data);
+
+    setData(data as FormSchema);
   };
 
   const onReset = (e: MouseEvent) => {
@@ -30,7 +31,12 @@ export default function CalculateForm() {
     reset();
   };
 
-  const [data, setData] = useState<FieldValues>();
+  const [data, setData] = useState<FormSchema>();
+  if (data.type === "interest-only") {
+    monthly;
+  }
+  let monthly: number;
+  let longTerm: number;
   return (
     <div className="bg-white">
       <form onSubmit={handleSubmit(onSubmit)} className="p-4">
@@ -175,6 +181,29 @@ export default function CalculateForm() {
             Complete the form and click “calculate repayments” to see what your
             monthly repayments would be.
           </p>
+        </div>
+      )}
+      {data && (
+        <div className="bg-slate-900 p-4 flex flex-col items-center ">
+          <h2 className="font-semibold text-white text-2xl mb-4">
+            Your Results
+          </h2>
+          <p className="text-white text-center mb-4">
+            Your results are shown below based on the information you provided.
+            To adjust the results, edit the form and click “calculate
+            repayments” again.
+          </p>
+          <div className="bg-black/25 p-4 w-full rounded-lg  border-t-4 border-t-lime">
+            <h3 className="mb-2 text-slate-300 font-semibold">
+              Your monthly payments
+            </h3>
+            <p className="mb-2 text-4xl text-lime font-bold">$1,797.74</p>
+            <hr className="text-white mb-2" />
+            <h3 className="mb-2 text-slate-300 font-semibold">
+              Total you&apos;ll repay over the term
+            </h3>
+            <p className="mb-2 font-bold text-2xl text-white">{data.amount}</p>
+          </div>
         </div>
       )}
     </div>
