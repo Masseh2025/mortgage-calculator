@@ -2,10 +2,11 @@
 
 import { formSchema, FormSchema } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MouseEvent } from "react";
+import { MouseEvent, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import Image from "next/image";
 import calculatorImage from "../../public/assets/images/icon-calculator.svg";
+import illustration from "../../public/assets/images/illustration-empty.svg";
 import { cn } from "@/lib/cn";
 
 export default function CalculateForm() {
@@ -21,6 +22,7 @@ export default function CalculateForm() {
   const onSubmit = async (data: FieldValues) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log(data);
+    setData(data);
   };
 
   const onReset = (e: MouseEvent) => {
@@ -28,6 +30,7 @@ export default function CalculateForm() {
     reset();
   };
 
+  const [data, setData] = useState<FieldValues>();
   return (
     <div className="bg-white">
       <form onSubmit={handleSubmit(onSubmit)} className="p-4">
@@ -79,7 +82,7 @@ export default function CalculateForm() {
             <div
               className={cn(
                 "border-slate-500 p-2 bg-slate-100 border-1 border-l-0 rounded-r-sm  flex justify-center group-focus-within:border-lime group-focus-within:bg-lime group-hover:border-lime group-hover:bg-lime transition-colors font-medium",
-                { "bg-red tex-white": errors.term }
+                { "bg-red text-white": errors.term }
               )}
             >
               Years
@@ -148,16 +151,32 @@ export default function CalculateForm() {
           </label>
         </div>
         <button
+          disabled={isSubmitting}
           type="submit"
-          className="flex bg-lime text-slate-900 py-2 px-4 hover:bg-lime/60 cursor-pointer font-bold rounded-full justify-center w-full"
+          className="flex bg-lime text-slate-900 py-2 px-4 hover:bg-lime/60 disabled:bg-lime/60 cursor-pointer font-bold rounded-full justify-center w-full"
         >
           <Image src={calculatorImage} width={24} height={24} alt="Calcultor" />
           Submit
         </button>
       </form>
-      <div className="bg-slate-900 p-4">
-        <h2 className="font-semibold">Results</h2>
-      </div>
+      {!data && (
+        <div className="bg-slate-900 p-4 flex flex-col items-center ">
+          <Image
+            className="mb-4"
+            src={illustration}
+            height={192}
+            width={192}
+            alt="calculator illustration"
+          ></Image>
+          <h2 className="font-semibold text-white text-2xl mb-4">
+            Resutls shown here
+          </h2>
+          <p className="text-white text-center">
+            Complete the form and click “calculate repayments” to see what your
+            monthly repayments would be.
+          </p>
+        </div>
+      )}
     </div>
   );
 }
