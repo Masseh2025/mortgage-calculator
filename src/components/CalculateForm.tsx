@@ -32,11 +32,7 @@ export default function CalculateForm() {
   };
 
   const [data, setData] = useState<FormSchema>();
-  if (data.type === "interest-only") {
-    monthly;
-  }
-  let monthly: number;
-  let longTerm: number;
+
   return (
     <div className="bg-white">
       <form onSubmit={handleSubmit(onSubmit)} className="p-4">
